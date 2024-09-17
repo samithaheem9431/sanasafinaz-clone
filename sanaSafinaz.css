@@ -4,47 +4,34 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
 .img_cover{
     background-image: url('/sanasifnaz.webp');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
     width: 100%;
-    display: flex;
+    height: 100vh;
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    display:flex;
     justify-content: center;
     align-items: center;
 }
-.logo {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.8); /* Transparent background for readability */
-    padding: 20px;
+
+.logo img{
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 350px;
+    height: 59.43px;
+}
+.Select_Country{
+    Padding: 5px 20px;
+    border: solid 1px black;
+    height: 50px;
     border-radius: 10px;
-}
-
-.logo img {
-    max-width: 350px; /* Adjust size for responsiveness */
-    height: auto;
-}
-
-.select_opt {
+    color: #282828 !important;
+    width: 350px;
+    font-size: 14px;
+    line-height: 37px;
+    cursor: pointer;
     margin-top: 20px;
-}
-
-.Select_Country {
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
 }
 .btn{
     cursor: pointer;
@@ -63,98 +50,3 @@ a{
 }
 
 
-
-
-
-
-
-
-
-/* Select and button styling
-.select_opt {
-    margin-top: 20px;
-}
-
-.Select_Country {
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-.btn a {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 30px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #333;
-    text-decoration: none;
-    border-radius: 5px;
-} */
-
-/* Hover effect
-.btn a:hover {
-    background-color: #555;
-} */
-
-/* Media Queries for Responsiveness */
-
-/* Large devices (desktops) */
-@media (min-width: 1024px) {
-    .Select_Country {
-        max-width: 350px;
-    }
-
-    .logo img {
-        max-width: 250px;
-    }
-}
-
-/* Tablets (768px and above) */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-
-    .logo img {
-        max-width: 180px;
-    }
-
-    .Select_Country {
-        max-width: 280px;
-        font-size: 0.9rem;
-    }
-    
-    .btn a {
-        font-size: 0.9rem;
-        padding: 10px 20px;
-    }
-}
-
-/* Mobile devices (up to 480px) */
-@media (max-width: 480px) {
-    html {
-        font-size: 14px; /* Adjust base font size for smaller screens */
-    }
-
-    .container {
-        padding: 10px;
-    }
-
-    .logo img {
-        max-width: 150px;
-    }
-
-    .Select_Country {
-        max-width: 100%;
-        font-size: 0.85rem;
-    }
-
-    .btn a {
-        font-size: 0.85rem;
-        padding: 8px 15px;
-    }
-}
