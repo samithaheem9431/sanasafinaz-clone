@@ -3,10 +3,13 @@
     margin: 0;
     box-sizing: border-box;
 }
-
-body {
+body{
+    overflow: hidden;
+    background-attachment: fixed;
+}
+.img_cover {
     background-image: url('/sanasifnaz.webp');
-    width: 100%;
+    min-width: 100vw;
     min-height: 100vh; /* Use min-height to allow for content overflow */
     background-size: cover; /* Ensures the image covers the screen */
     background-position: center; 
@@ -52,6 +55,9 @@ body {
     padding-top: 5px;
     margin-left: auto;
     margin-right: auto; /* Ensure button is centered */
+    letter-spacing: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
 }
 
 a {
@@ -62,12 +68,12 @@ a {
 /* Responsive media query for smaller screens */
 @media (max-width: 390px) {
     body {
-        background-size: cover; /* Ensure the background image covers the screen on smaller devices */
+        background-size:auto; /*Ensure the background image covers the screen on smaller devices*/
     }
 
     .logo img {
         width: 75%; /* Slightly smaller on very small screens */
-        max-width: 300px;
+        max-width: 390px;
     }
 
     .Select_Country {
