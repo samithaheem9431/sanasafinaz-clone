@@ -1,40 +1,43 @@
+/* Global Styles */
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-body{
+body {
     overflow: hidden;
-    background-attachment: fixed;
+    font-family: Arial, sans-serif;
 }
+
+/* Image Cover Section */
 .img_cover {
     background-image: url('/sanasifnaz.webp');
-    min-width: 100vw;
-    min-height: 100vh; /* Use min-height to allow for content overflow */
-    background-size: cover; /* Ensures the image covers the screen */
-    background-position: center; 
+    min-width: 100%;
+    min-height: 100%;
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; /* Ensures elements stack vertically */
-    text-align: center; /* Center-align the text content */
+    text-align: center;
+    overflow: hidden;
 }
 
 .logo img {
     background-color: rgba(255, 255, 255, 0.8);
-    width: 80%; /* Responsive width */
-    max-width: 350px; /* Prevents the logo from exceeding 350px */
+    width: 80%;
+    max-width: 350px;
     height: auto;
 }
 
 .Select_Country {
     padding: 5px 20px;
-    border: solid 1px black;
+    border: 1px solid black;
     height: 50px;
     border-radius: 10px;
-    color: #282828 !important;
-    width: 80%; /* Responsive width */
+    color: #282828;
+    width: 80%;
     max-width: 350px;
     font-size: 1rem;
     line-height: 37px;
@@ -46,7 +49,7 @@ body{
     cursor: pointer;
     background-color: #2d2b2a;
     color: white;
-    width: 60%; /* Responsive width */
+    width: 60%;
     max-width: 200px;
     height: 40px;
     font-size: 1.5rem;
@@ -54,9 +57,9 @@ body{
     text-align: center;
     padding-top: 5px;
     margin-left: auto;
-    margin-right: auto; /* Ensure button is centered */
+    margin-right: auto;
     letter-spacing: 2px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     text-transform: uppercase;
 }
 
@@ -65,26 +68,73 @@ a {
     text-decoration: none;
 }
 
-/* Responsive media query for smaller screens */
+/* Media Queries */
+
+/* For Small Devices (up to 390px) */
 @media (max-width: 390px) {
-    body {
-        background-size:auto; /*Ensure the background image covers the screen on smaller devices*/
+    .img_cover {
+        background-size: auto;
     }
 
     .logo img {
-        width: 75%; /* Slightly smaller on very small screens */
-        max-width: 390px;
+        width: 75%;
     }
 
     .Select_Country {
-        width: 75%; /* Adjust the input field size for smaller screens */
-        font-size: 0.9rem; /* Slightly smaller font size */
+        width: 75%;
+        font-size: 0.9rem;
     }
 
     .btn {
-        width: 70%; /* Adjust the button width */
-        font-size: 1.2rem; /* Slightly reduce font size for readability */
-        margin-left: auto;
-        margin-right: auto; /* Ensure it's centered */
+        width: 70%;
+        font-size: 1.2rem;
+    }
+}
+
+/* For Medium Devices (up to 768px) */
+@media (max-width: 768px) {
+    .img_cover {
+        background-image: url('/Country-Banner-for-Mobile-.webp');
+        min-width: 100vw;
+        min-height: 100vh;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .Select_Country {
+        width: 70%;
+        font-size: 1rem;
+    }
+
+    .btn {
+        width: 50%;
+        font-size: 1.4rem;
+    }
+    .logo img {
+        width: 90%;
+    }
+}
+
+/* For Large Devices (above 768px) */
+@media (min-width: 769px) {
+    .img_cover {
+        background-image: url('/sanasifnaz.webp');
+        min-width: 100vw;
+        min-height: 100vh;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .Select_Country {
+        width: 80%;
+        font-size: 1.1rem;
+    }
+
+    .btn {
+        width: 50%;
+        font-size: 1.5rem;
+    }
+    .logo img {
+        width: 100%;
     }
 }
