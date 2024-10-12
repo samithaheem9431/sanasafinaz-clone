@@ -1,30 +1,27 @@
-/* General Reset */
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-body {
+body {  
     font-family: Arial, Tahoma, sans-serif;
     padding-top: 100px;
     scroll-behavior: smooth;
 }
 
-/* General Styles */
-html {
+html{
     scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
-    display: none;
+    display: none; /* Consider removing for performance */
 }
 
-/* Upper Tag Scrolling Text */
 .uppertag {
     background-color: #bbb;
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 12px;
     color: #878787;
     height: 30px;
     position: fixed;
@@ -32,7 +29,7 @@ html {
     width: 100%;
     z-index: 1000;
     padding-top: 10px;
-    will-change: transform;
+    will-change: transform; /* Added for better performance */
 }
 
 .uppertag p {
@@ -48,7 +45,6 @@ html {
     }
 }
 
-/* Navbar Styles */
 .navbar {
     height: 80px;
     background-color: white;
@@ -60,13 +56,13 @@ html {
     width: 100%;
     z-index: 999;
     padding: 10px 20px;
-    will-change: transform;
+    will-change: transform; /* Added for better performance */
 }
 
 .navbar div {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    margin-right: 20px; 
     flex-direction: column;
 }
 
@@ -76,27 +72,25 @@ html {
 
 .whatsapp i {
     color: #25D366;
+    font-size: 24px;
 }
 
-.track i, .account i, .myCart i, .search i,.whatsapp i {
-    font-size: 1.5rem;
+.track i, .account i, .myCart i, .search i {
+    font-size: 24px;
 }
 
 .myCart, .track, .whatsapp, .search, .account {
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 12px;
     margin-top: 5px;
     margin-left: 1.5rem;
 }
 
-/* Menu and Logo */
 .menu {
-    font-size: 1.5rem;
+    font-size: 24px;
 }
 
 .logo {
-    flex-grow: 1;
-    text-align: center;
     margin-left: 26%;
 }
 
@@ -105,14 +99,25 @@ html {
     height: auto;
 }
 
-/* Image Grid */
-.img1 img, .img2 img, .img3 img, .img4 img, .img5 img, .img6 img, .img7 img, .img8 img, .img9 img {
+.logo {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.img1 img,
+.img2 img,
+.img3 img,
+.img4 img,
+.img5 img,
+.img6 img,
+.img7 img,
+.img8 img,
+.img9 img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Footer Section */
 .footer {
     width: 100%;
     height: 82vh;
@@ -131,17 +136,50 @@ html {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: 2px solid black;
+    border: 2px black solid;
 }
 
 .loc img, .trak img, .msg img, .tele img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    padding: 15%;
+    padding: 15%; 
 }
 
-/* Footer Text and Links */
+.loc {
+    margin-left: 15px;
+}
+
+.trak {
+    margin-right: 15px;
+}
+
+.messging {
+    display: flex;
+}
+
+.messging p {
+    margin-top: 30px;
+    margin-left: 10px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 18px;
+}
+
+.location p, .tracking p {
+    position: relative;
+    bottom: 65px;
+    left: 115px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.tele {
+    margin-left: 8px;
+}
+
 .lowerFooter {
     padding: 30px 20px;
     color: black;
@@ -150,6 +188,7 @@ html {
 .footer-info {
     display: flex;
     justify-content: space-evenly;
+    text-align: left;
     gap: 20px;
 }
 
@@ -160,7 +199,7 @@ html {
 
 .footer-info li {
     margin-bottom: 10px;
-    font-size: 0.875rem;
+    font-size: 14px;
 }
 
 .footer-info li a {
@@ -169,13 +208,28 @@ html {
 }
 
 .footer-info li a:hover {
+    text-decoration: none;
     color: red;
 }
 
-/* Newsletter Signup */
+.heading {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.talk {
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 10px 10px 10px 0px;
+}
+
 .newsletter-signup form {
     display: flex;
     align-items: center;
+    margin: 0;
+    padding: 0;
     gap: 0;
     height: 50px;
     line-height: 22px;
@@ -183,9 +237,10 @@ html {
 
 .newsletter-signup input {
     padding: 10px;
-    font-size: 0.875rem;
-    border: 2px solid black;
-    border-radius: 20px 0 0 20px;
+    font-size: 14px;
+    border: 2px black solid;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
     width: 200px;
     background-color: black;
     color: white;
@@ -193,15 +248,18 @@ html {
 
 .newsletter-signup input::placeholder {
     color: white;
+    opacity: 1;
 }
 
 .newsletter-signup button {
     padding: 10px;
-    font-size: 0.875rem;
-    border-radius: 0 20px 20px 0;
+    font-size: 14px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
     width: 80px;
     background-color: #d5d5d5;
     color: #000;
+    border: 2px #d5d5d5 solid;
     font-weight: 600;
 }
 
@@ -209,7 +267,6 @@ html {
     background-color: #878787;
 }
 
-/* Social Icons */
 .downfooter {
     display: flex;
     justify-content: center;
@@ -220,7 +277,7 @@ html {
     width: 75px;
     height: 75px;
     border-radius: 50%;
-    border: 2px solid #d5d5d5;
+    border: 2px #d5d5d5 solid;
     margin: 10px;
     display: flex;
     justify-content: center;
@@ -229,11 +286,28 @@ html {
 }
 
 .insta i, .fb i, .linkdin i, .youtube i, .twitter i {
-    font-size: 2.5rem;
+    font-size: 40px;
     color: black;
 }
 
-/* Payment Logos */
+.atm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 15px;
+    width: 30%;
+}
+
+.p {
+    font-weight: 600;
+    margin-left: 2.5rem;
+    font-size: 14px;
+}
+
+.alflah, .master, .visa, .union {
+    margin-left: 15px;
+}
+
 .alflah img {
     width: 45%;
     margin-left: 4rem;
@@ -252,13 +326,28 @@ html {
     margin-left: 50px;
 }
 
-/* Gallery Section */
+.p2 {
+    font-weight: 600;
+    float: right;
+    margin-right: 15.5rem;
+    margin-top: 0.5rem;
+    font-size: 14px;
+}
+
+.encrpt {
+    display: inline-flex;
+    justify-content: right;
+    margin-left: 73rem;
+    position: relative;
+    bottom: 50px;
+}
+
 .gallery {
     position: relative;
 }
 
 .gallery > div {
-    min-height: 90vh;
+    min-height: 90vh; /* Adjusted for performance */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -268,10 +357,9 @@ html {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    loading: lazy;
+    loading: lazy; /* Added lazy loading for better performance */
 }
 
-/* Dots Navigation */
 .dots {
     position: fixed;
     right: 20px;
@@ -302,7 +390,7 @@ html {
         padding: 10px;
     }
     .menu, .search, .myCart, .track, .whatsapp {
-        font-size: 1.125rem;
+        font-size: 18px;
     }
     .logo img {
         width: 150px;
@@ -316,9 +404,13 @@ html {
     }
     .menu, .myCart, .track, .whatsapp, .search {
         margin: 5px 0;
+        font-size: 18px;
     }
     .logo {
         margin: 0;
+    }
+    .search {
+        margin-left: 0;
     }
 }
 
@@ -327,9 +419,9 @@ html {
         padding: 5px;
     }
     .menu {
-        font-size: 1rem;
+        font-size: 16px;
     }
     .myCart, .track, .whatsapp, .search {
-        font-size: 0.875rem;
+        font-size: 14px;
     }
 }
