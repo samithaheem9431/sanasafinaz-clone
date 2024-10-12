@@ -1,4 +1,4 @@
-/* Global Styles */
+
 * {
     padding: 0;
     margin: 0;
@@ -9,7 +9,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Image Cover Section */
 .img_cover {
     background-image: url('/sanasifnaz.webp');
     min-width: 100%;
@@ -115,7 +114,6 @@ a {
         width: 90%;
     }
 }
-
 /* For Large Devices (above 768px) */
 @media (min-width: 769px) {
     .img_cover {
