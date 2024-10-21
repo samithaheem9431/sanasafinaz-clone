@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <form>
+            <div class="mb-3">
+                <label for="notes" class="form-label">Add notes</label>
+                <textarea class="form-control" id="notes" rows="2" placeholder="Add notes"></textarea>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="firstName" class="form-label">FIRST NAME</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="firstName">
+                    <div class="form-text text-danger errormessage" id="firstNameerror" style="display: none;">* Please Enter First Name</div>
+                </div>
+                <div class="col-md-6">
+                    <label for="lastName" class="form-label">LAST NAME</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="lastName">
+                    <div class="form-text text-danger errormessage" id="lastNameerror" style="display: none;">* Please Enter Last Name</div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">EMAIL ADDRESS</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter Email" autocomplete="email" autofill="email">
+                <div class="form-text text-danger errormessage" id="emailerror" style="display: none;">* Please Enter Valid Email</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">ENTER YOUR PHONE NUMBER</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="countryCode">+92</span>
+                    <input type="tel" class="form-control" id="phone" placeholder="Enter Phone" aria-describedby="countryCode">
+                    <div class="form-text text-danger errormessage w-100" id="phoneerror" style="display: none;">* Please Enter Phone No</div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="city" class="form-label">SELECT YOUR CITY</label>
+                <select class="form-select" id="city" aria-label="Select City">
+                    <option selected>Multan</option>
+                    <option value="1">Faisalabad</option>
+                    <option value="2">Lahore</option>
+                    <option value="3">Karachi</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 ">CHECKOUT</button>
+        </form>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/script.js"></script>
+</body>
+</html>

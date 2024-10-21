@@ -357,7 +357,6 @@ html{
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    loading: lazy; /* Added lazy loading for better performance */
 }
 
 .dots {
