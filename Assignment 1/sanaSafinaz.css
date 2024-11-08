@@ -10,7 +10,7 @@ body {
 }
 
 .img_cover {
-    background-image: url('images/sanasifnaz.webp');
+    background-image: url('/Assignment 1/images/sanasifnaz.webp');
     min-width: 100%;
     min-height: 100%;
     background-size: cover;
@@ -94,7 +94,7 @@ a {
 /* For Medium Devices (up to 768px) */
 @media (max-width: 768px) {
     .img_cover {
-        background-image: url('/Country-Banner-for-Mobile-.webp');
+        background-image: url('/Assignment 1/images/Country-Banner-for-Mobile-.webp');
         min-width: 100vw;
         min-height: 100vh;
         background-size: cover;
@@ -117,7 +117,7 @@ a {
 /* For Large Devices (above 768px) */
 @media (min-width: 769px) {
     .img_cover {
-        background-image: url('/sanasifnaz.webp');
+        background-image: url('/Assignment 1/images/sanasifnaz.webp');
         min-width: 100vw;
         min-height: 100vh;
         background-size: cover;
