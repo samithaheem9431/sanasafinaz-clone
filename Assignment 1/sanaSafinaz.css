@@ -10,7 +10,7 @@ body {
 }
 
 .img_cover {
-    background-image: url('/sanasifnaz.webp');
+    background-image: url('images/sanasifnaz.webp');
     min-width: 100%;
     min-height: 100%;
     background-size: cover;
