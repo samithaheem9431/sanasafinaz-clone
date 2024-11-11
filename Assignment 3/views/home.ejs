@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SanaSafinaz-clone</title>
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #0a192f;
+    color: #8892b0;
+    line-height: 1.7;
+}
+.contact-item a{
+    text-decoration: none;
+    color:  #ccd6f6;
+}
+.cv-container {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background: #112240;
+    padding: 40px;
+    position: fixed;
+    width: 350px;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.profile-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.profile-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px;
+}
+
+.profile-border {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border: 2px solid #64ffda;
+    border-radius: 50%;
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.profile-pic {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #233554;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile-pic:hover {
+    transform: scale(1.05);
+}
+
+.name {
+    color: #ccd6f6;
+    font-size: 2em;
+    margin: 20px 0 10px;
+}
+
+.title {
+    color: #64ffda;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.contact-info {
+    background: #233554;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    color: #ccd6f6;
+}
+
+/* Main Content Styles */
+.main-content {
+    margin-left: 350px;
+    padding: 40px;
+}
+
+.floating-intro {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background: #112240;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #64ffda;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    color: #ccd6f6;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+section {
+    margin-bottom: 60px;
+}
+
+.section-title {
+    color: #ccd6f6;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.section-title::before {
+    content: '';
+    display: inline-block;
+    width: 50px;
+    height: 2px;
+    background: #64ffda;
+    margin-right: 20px;
+}
+
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.experience-card {
+    background: #112240;
+    padding: 25px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    border: 1px solid #233554;
+}
+
+.experience-card:hover {
+    transform: translateY(-5px);
+    border-color: #64ffda;
+}
+
+.experience-card h3 {
+    color: #64ffda;
+    margin-bottom: 10px;
+}
+
+.experience-card .date {
+    color: #ccd6f6;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.skill-item {
+    background: #112240;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    border: 1px solid #233554;
+}
+
+.skill-item:hover {
+    transform: translateY(-3px);
+    border-color: #64ffda;
+}
+
+.skill-name {
+    color: #ccd6f6;
+    margin-bottom: 10px;
+}
+
+.skill-level {
+    width: 100%;
+    height: 6px;
+    background: #233554;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    height: 100%;
+    background: #64ffda;
+    border-radius: 3px;
+    transition: width 1s ease;
+}
+
+.education-timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.education-item {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #112240;
+    border-radius: 10px;
+    border: 1px solid #233554;
+}
+
+.education-item::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    width: 15px;
+    height: 15px;
+    background: #64ffda;
+    border-radius: 50%;
+    transform: translateY(-50%);
+}
+
+.education-item::after {
+    content: '';
+    position: absolute;
+    left: -23px;
+    top: 0;
+    bottom: -30px;
+    width: 1px;
+    background: #64ffda;
+}
+
+.education-item:last-child::after {
+    display: none;
+}
+
+.education-item h3 {
+    color: #64ffda;
+    margin-bottom: 10px;
+}
+
+.education-item .school {
+    color: #ccd6f6;
+    font-weight: 500;
+}
+
+.floating-intro {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background: #112240;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #64ffda;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    color: #ccd6f6;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.profile-pic {
+    transition: transform 0.3s ease;
+}
+
+.profile-border {
+    transition: animation 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+    .cv-container {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .profile-container {
+        width: 150px;
+        height: 150px;
+    }
+
+    .profile-pic {
+        width: 150px;
+        height: 150px;
+    }
+}
+    </style>
+  </head>
+  <body>
+
+    <header>
+        <div class="uppertag position-fixed w-100 py-2" style="top: 0; z-index: 1030;">
+            <p class="mb-0">In Pakistan, a flat fee of PKR 190 will be charged on all orders | Free International Shipping Above USD 300 (T&C Apply) - UAN/WhatsApp: 021-111-003-005)</p>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white position-fixed w-100 shadow-sm" style="top: 40px; z-index: 1020;">
+            <div class="container-fluid position-relative">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <img src="images/S-SBlack.webp" alt="Logo" height="40">
+                </a>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa-solid fa-bars"></i>
+                                Menu
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                Search
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <select class="form-select" id="flag_selec">
+                                <option value=""></option>
+                            </select>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://web.whatsapp.com/send?phone=+9221111003005&text=Hi,%20I%20need%20assistance">
+                                <i id="whatsapp" class="fa-brands fa-whatsapp"></i>
+                                WhatsApp
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa-solid fa-truck-fast"></i>
+                                Track
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa-regular fa-user"></i>
+                                Account
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                My Cart
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid p-0">
+        <div class="gallery">
+            <section class="gallery-section" id="section1">
+                <img src="images/Muzlin-Winter-2024-MAIN-WEB-BANNER-1920-X-750-1.webp" class="img-fluid" alt="Banner Image">
+            </section>
+            <section class="gallery-section" id="section2">
+                <img src="images/RTW-September-2024_MAIN-WEB-BANNER-1920-X-750-1.webp" class="img-fluid" alt="Banner Image">
+            </section>
+            <section class="gallery-section" id="section3">
+                <img src="images/Mahay-Winter-2024-MAIN-WEB-BANNER-1920-X-750-1.webp" class="img-fluid" alt="Banner Image">
+            </section>
+            <section class="gallery-section" id="section4">
+                <img src="images/Nura-September-2024-MAIN-WEB-BANNER-1920-X-750-1.webp" class="img-fluid" alt="Banner Image">
+            </section>
+            <section class="gallery-section" id="section5">
+                <img src="images/WESST-July-2024-MAIN-WEB-BANNER-1920-X-750-1.webp" class="img-fluid" alt="Banner Image">
+            </section>
+            <section class="gallery-section" id="section6">
+                <img src="images/RTW-September-2024-Kids_MAIN-WEB-BANNER-1920-X-750-1.webp" class="img-fluid" alt="Banner Image">
+            </section>
+            <section class="gallery-section" id="section7">
+                <img src="images/Footwear-September-2024-MAIN-WEB-BANNER-1920-X-750-1.webp" class="img-fluid" alt="Banner Image">
+            </section>
+            <section class="gallery-section" id="section8">
+                <img src="images/Perfume-August-2024-MAIN-BANNER.webp" class="img-fluid" alt="Banner Image">
+            </section>
+            <section class="gallery-section" id="section9">
+                <img src="images/Home-23-New-MAIN-BANNER.webp" class="img-fluid" alt="Banner Image">
+            </section>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-4 text-center">
+                    <div class="icon-circle mx-auto">
+                        <img src="images/locator[1].png" alt="Find a store">
+                    </div>
+                    <p class="fw-bold">FIND A STORE</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="icon-circle mx-auto">
+                        <img src="images/truck[1].png" alt="Track order">
+                    </div>
+                    <p class="fw-bold">TRACK ORDER</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="d-flex justify-content-center">
+                        <div class="icon-circle me-2">
+                            <img src="images/msg-removebg-preview.png" alt="Message">
+                        </div>
+                        <div class="icon-circle">
+                            <img src="images/telephone-icon.webp" alt="Telephone">
+                        </div>
+                    </div>
+                    <p class="fw-bold mt-2">GET IN TOUCH</p>
+                </div>
+            </div>
+
+            <div class="row footer-links">
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping Information</a></li>
+                        <li><a href="#">Return & Exchange</a></li>
+                        <li><a href="#">Payment & Security</a></li>
+                        <li><a href="#">Loyalty Programme</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">Help</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Store Locator</a></li>
+                        <li><a href="#">Track your Order</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">FAQ's</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="fw-bold mb-3">Contact Info</h6>
+                    <ul class="list-unstyled">
+                        <li>Sanasafinaz UAN PAKISTAN:</li>
+                        <li><a href="#">021-111-003-005</a></li>
+                        <li><a href="#">021-36105426</a></li>
+                        <li>UAN INTERNATIONAL:</li>
+                        <li><a href="#">+9221-111-003-005</a></li>
+                        <li><a href="#">+9221-36105426</a></li>
+                        <li>Email: <a href="mailto:sales@sanasafinaz.com">sales@sanasafinaz.com</a></li>
+                        <li><a href="mailto:bridals@sanasafinaz.com">bridals@sanasafinaz.com</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">Information</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Privacy and Cookie Policy</a></li>
+                        <li><a href="#">Order and Returns</a></li>
+                        <li><a href="#">Search Terms</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Size Chart</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="fw-bold mb-3">Sign Up For Our Newsletter</h6>
+                    <form class="newsletter-form">
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Enter your email" required>
+                            <button class="btn" type="submit">Sign up</button>
+                        </div>
+                    </form>
+                    <h6 class="fw-bold mt-4">Talk To Us!</h6>
+                    <p>Text Us @ 9095 (For Residents Of Pakistan Only)</p>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-12 d-flex justify-content-center mb-4 ">
+                    <a href="https://www.instagram.com/sanasafinazofficial/" class="mx-2 text-decoration-none">
+                        <div class="social-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </a>
+                    <a href="https://www.facebook.com/sanasafinazpage/" class="mx-2 text-decoration-none">
+                        <div class="social-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="fab fa-facebook"></i>
+                        </div>
+                    </a>
+                    <a href="https://x.com/sanasafinaz?mx=2" class="mx-2 text-decoration-none">
+                        <div class="social-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                    </a>
+                    <a href="https://pk.linkedin.com/company/sanasafinaz" class="mx-2 text-decoration-none">
+                        <div class="social-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                    </a>
+                    <a href="https://www.youtube.com/c/Sanasafinazofficial" class="mx-2 text-decoration-none">
+                        <div class="social-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <p class="fw-bold mb-2">100% Safe Checkout</p>
+                    <div class="payment-methods">
+                        <img src="images/alflah.png" alt="alflah" style="height: 20px;">
+                        <img src="images/MasterCard_Logo.svg-removebg-preview.png" alt="MasterCard_Logo" style="height: 25px;">
+                        <img src="images/png-clipart-visa-logo-credit-card-visa-logo-payment-visa-blue-text-thumbnail-removebg-preview.png" alt="visa" style="height: 20px;">
+                        <img src="images/png-clipart-unionpay-payment-credit-card-bank-american-express-credit-card-text-logo-thumbnail-removebg-preview.png" alt="union" style="height: 25px;">
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <!-- This column is now empty -->
+                </div>
+                <div class="col-md-4 text-end">
+                    <p class="fw-bold mb-2">Secured by</p>
+                    <img src="images/let-encrypt-icon.png" alt="encrpt" style="height: 30px;">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/sana.js"></script>
+  </body>
+</html>
