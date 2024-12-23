@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h2>Order Confirmed!</h2>
+            </div>
+            <div class="card-body">
+                <h4>Order Details:</h4>
+                <p>Product: <%= product.title %></p>
+                <p>Size: <%= order.size %></p>
+                <p>Quantity: <%= order.quantity %></p>
+                <h4>Bill Summary:</h4>
+                <p>Subtotal: PKR <%= order.billing.subtotal.toFixed(2) %></p>
+                <p>Tax (5%): PKR <%= order.billing.tax.toFixed(2) %></p>
+                <p>Shipping Fee: PKR <%= order.billing.shippingFee.toFixed(2) %></p>
+                <p><strong>Total Amount: PKR <%= order.billing.total.toFixed(2) %></strong></p>
+                
+                <h4>Shipping Details:</h4>
+                <p>Name: <%= order.shippingDetails.name %></p>
+                
+                <div class="mt-4">
+                    <a href="/uploads/bills/<%= pdfFileName %>" class="btn btn-success" download>
+                        <i class="fas fa-download"></i> Download Bill
+                    </a>
+                </div>
+                
+                <h4>Payment Method: <%= order.paymentMethod %></h4>
+                
+                <a href="/women" class="btn btn-primary">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

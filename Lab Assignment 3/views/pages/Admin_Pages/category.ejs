@@ -1,0 +1,22 @@
+<h3>Category</h3>
+<a href="/admin/products/createCategory" class="btn btn-info">Create New Category</a>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>_id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for(let i=0; i < category.length ; i++ ){  %>
+            <tr>
+                <td><%= category[i]._id %></td>
+                <td><%= category[i].categoryName %></td>
+                <td>
+                    <a href="/admin/categories/edit/<%= category[i]._id %>" class="btn btn-primary">Edit</a>
+                    <a href="/admin/categories/delete/<%= category[i]._id %>" class="btn btn-dark">Del</a>
+                </td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>

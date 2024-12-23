@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylish Product Submission</title>
+    <style>
+        .form-wrapper {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --background-color: #ecf0f1;
+    --text-color: #2c3e50;
+    --accent-color: #e74c3c;
+          }
+
+        .form-wrapper {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            position: relative;
+            top: 20px;
+            left:350px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .form-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        .form-title {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 30px;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .form-title::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-control:invalid {
+            border-color: var(--accent-color);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 12px 15px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            text-align: center;
+            color: #888;
+            transition: all 0.3s ease;
+        }
+
+        .file-input-wrapper:hover .file-input-label {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-input {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .form-wrapper {
+                padding: 20px;
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-wrapper">
+        <h2 class="form-title">Add New Product</h2>
+        <form id="productForm" method="post" >
+            <div class="form-group">
+                <label for="productTitle" class="form-label">Product Title</label>
+                <input 
+                    type="text" 
+                    id="productTitle" 
+                    class="form-control" 
+                    required 
+                    minlength="3" 
+                    maxlength="100" 
+                    placeholder="Enter product name"
+                    name="title"
+                    value="<%= product.title %>"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="productDescription" class="form-label">Description</label>
+                <textarea 
+                    id="productDescription" 
+                    class="form-control" 
+                    rows="4" 
+                    required 
+                    minlength="5" 
+                    maxlength="500" 
+                    placeholder="Describe your product in detail"
+                    name="description"
+                ><%= product.description %></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="productPrice" class="form-label">Price</label>
+                <div class="input-group">
+                    <input 
+                        type="number" 
+                        id="productPrice" 
+                        class="form-control" 
+                        required 
+                        min="0" 
+                        step="0.01" 
+                        placeholder="0.00"
+                        name="price"
+                        value="<%= product.price %>"
+                    >
+                </div>
+            </div>
+
+<!-- Add this after the price input in editform.ejs -->
+<div class="form-group">
+    <label class="form-label">Product Quantities</label>
+    <div class="row">
+        <div class="col-md-4">
+            <label for="smallQuantity" class="form-label">Small</label>
+            <input 
+                type="number" 
+                id="smallQuantity" 
+                class="form-control" 
+                name="quantities[small]" 
+                min="0" 
+                value="<%= product.quantities.small %>"
+            >
+        </div>
+        <div class="col-md-4">
+            <label for="mediumQuantity" class="form-label">Medium</label>
+            <input 
+                type="number" 
+                id="mediumQuantity" 
+                class="form-control" 
+                name="quantities[medium]" 
+                min="0" 
+                value="<%= product.quantities.medium %>"
+            >
+        </div>
+        <div class="col-md-4">
+            <label for="largeQuantity" class="form-label">Large</label>
+            <input 
+                type="number" 
+                id="largeQuantity" 
+                class="form-control" 
+                name="quantities[large]" 
+                min="0" 
+                value="<%= product.quantities.large %>"
+            >
+        </div>
+    </div>
+</div>
+<div class="form-group"> 
+    <select name="categoryid" id="">
+        <% for(let i = 0; i < category.length; i++) { %>
+            <option value="<%= category[i].categoryName %>" 
+                <% if (product.categoryid === category[i].categoryName) { %> selected <% } %>>
+                <%= category[i].categoryName %>
+            </option>
+        <% } %>
+    </select>
+</div>
+
+            <div class="checkbox-group">
+                <input 
+                    type="checkbox" 
+                    id="featuredProduct" 
+                    class="checkbox-input"
+                    name="isFeatured"
+                    value="<%= product.isFeatured %>"
+                >
+                <label for="featuredProduct">Mark as Featured Product</label>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit Product</button>
+        </form>
+    </div>
+
+    <script>
+        // Simple form validation
+        const form = document.getElementById('productForm');
+        const inputs = form.querySelectorAll('input, textarea');
+
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.checkValidity()) {
+                    isValid = false;
+                    input.classList.add('invalid');
+                } else {
+                    input.classList.remove('invalid');
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<style>
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #34495e;
+        --light-color: #ecf0f1;
+        --hover-color: #3498db;
+    }
+    body {
+        background-color: #f4f6f9;
+    }
+    .dashboard-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+        transition: transform 0.3s ease;
+    }
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+    }
+    .dashboard-card-header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 15px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        display: flex;
+        align-items: center;
+    }
+    .dashboard-stats {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+    }
+    .stat-item {
+        text-align: center;
+        flex-grow: 1;
+    }
+    .stat-value {
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+    .stat-label {
+        color: #6c757d;
+        margin-top: 5px;
+    }
+    .table-responsive {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+</style>
+</head>
+<body>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Dashboard</h1>
+        
+        <!-- Stats Cards -->
+        <div class="row mt-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-primary text-white mb-4">
+                    <div class="card-body">
+                        <h4 class="mb-0">Pkr <%= stats.totalRevenue.toFixed(2) %></h4>
+                        <div>Total Revenue</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">
+                        <h4 class="mb-0"><%= stats.totalProducts %></h4>
+                        <div>Total Products</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white mb-4">
+                    <div class="card-body">
+                        <h4 class="mb-0"><%= stats.lowStock %></h4>
+                        <div>Low Stock Items</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-info text-white mb-4">
+                    <div class="card-body">
+                        <h4 class="mb-0"><%= stats.totalOrders %></h4>
+                        <div>Total Orders</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add this before the charts section -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Sales Period Filter</h5>
+            </div>
+            <div class="card-body">
+                <form id="dateFilterForm" class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="startDate" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="startDate" name="startDate" 
+                            value="<%= dateRange.startDate %>">
+                    </div>
+                    <div class="col-auto">
+                        <label for="endDate" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="endDate" name="endDate" 
+                            value="<%= dateRange.endDate %>">
+                    </div>
+                    <div class="col-auto">
+                        <label class="form-label">&nbsp;</label>
+                        <button type="submit" class="btn btn-primary d-block">Apply Filter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add this after the Sales Period Filter card and before the Charts Section -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-percentage me-1"></i> Tax Settings</h5>
+            </div>
+            <div class="card-body">
+                <form id="taxSettingsForm" class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="taxRate" class="form-label">Tax Rate (%)</label>
+                        <div class="input-group">
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="taxRate" 
+                                   name="taxRate" 
+                                   min="0" 
+                                   max="100" 
+                                   step="0.01" 
+                                   value="<%= settings?.taxRate || 0 %>"
+                                   required>
+                            <span class="input-group-text">%</span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <label class="form-label">&nbsp;</label>
+                        <button type="submit" class="btn btn-primary d-block">Update Tax Rate</button>
+                    </div>
+                </form>
+                <div id="taxUpdateAlert" class="alert mt-3" style="display: none;" role="alert"></div>
+            </div>
+        </div>
+
+        <!-- Add this in the Charts Section after your statistics cards -->
+        <div class="row mt-4">
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-line me-1"></i>
+                        Sales Overview
+                    </div>
+                    <div class="card-body">
+                        <canvas id="salesChart" width="100%" height="40"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-1"></i>
+                        Profit Analysis
+                    </div>
+                    <div class="card-body">
+                        <canvas id="profitChart" width="100%" height="40"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add this after the charts -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Period Summary</h5>
+                        <p class="mb-1">Total Sales: PKR <%= stats.periodTotalSales.toLocaleString() %></p>
+                        <p class="mb-0">Total Profit: PKR <%= stats.periodTotalProfit.toLocaleString() %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Orders Table -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Recent Orders
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer Name</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (stats.recentOrders && stats.recentOrders.length > 0) { %>
+                                <% stats.recentOrders.forEach(order => { %>
+                                    <tr>
+                                        <td><%= order._id %></td>
+                                        <td><%= order.shippingDetails?.name || 'N/A' %></td>
+                                        <td>pkr <%= order.billing?.total?.toFixed(2) || '0.00' %></td>
+                                        <td>
+                                            <span class="badge bg-<%= order.status === 'Completed' ? 'success' : (order.status === 'Cancelled' ? 'danger' : 'warning') %>">
+                                                <%= order.status || 'Pending' %>
+                                            </span>
+                                        </td>
+                                        <td><%= new Date(order.createdAt).toLocaleDateString() %></td>
+                                        <td>
+                                            <a href="/admin/orders/<%= order._id %>" class="btn btn-sm btn-info">
+                                                <i class="fas fa-eye"></i> View
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <% }); %>
+                            <% } else { %>
+                                <tr>
+                                    <td colspan="6" class="text-center">No recent orders found</td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stock Status -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-box me-1"></i>
+                Low Stock Products
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Small</th>
+                                <th>Medium</th>
+                                <th>Large</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% products.forEach(product => { %>
+                                <% if (product.quantities.small < 10 || product.quantities.medium < 10 || product.quantities.large < 10) { %>
+                                    <tr>
+                                        <td><%= product.title %></td>
+                                        <td class="<%= product.quantities.small < 10 ? 'text-danger' : '' %>">
+                                            <%= product.quantities.small %>
+                                        </td>
+                                        <td class="<%= product.quantities.medium < 10 ? 'text-danger' : '' %>">
+                                            <%= product.quantities.medium %>
+                                        </td>
+                                        <td class="<%= product.quantities.large < 10 ? 'text-danger' : '' %>">
+                                            <%= product.quantities.large %>
+                                        </td>
+                                        <td>
+                                            <a href="/admin/products/edit/<%= product._id %>" class="btn btn-sm btn-warning">
+                                                <i class="fas fa-edit"></i> Update Stock
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chartData = JSON.parse('<%- JSON.stringify(chartData) %>');
+
+            // Sales Chart
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: 'Monthly Sales (PKR)',
+                        data: chartData.sales,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'PKR ' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Sales: PKR ' + context.raw.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Profit Chart
+            const profitCtx = document.getElementById('profitChart').getContext('2d');
+            new Chart(profitCtx, {
+                type: 'bar',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        label: 'Monthly Profit (PKR)',
+                        data: chartData.profit,
+                        backgroundColor: 'rgb(153, 102, 255)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'PKR ' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Profit: PKR ' + context.raw.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        // Add this if you want to auto-refresh the dashboard
+        setInterval(() => {
+            window.location.reload();
+        }, 300000); // Refresh every 5 minutes
+
+        document.getElementById('dateFilterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            window.location.href = `/admin/dashboard?startDate=${startDate}&endDate=${endDate}`;
+        });
+
+        // Add this to your existing script
+        document.getElementById('taxSettingsForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const taxRate = document.getElementById('taxRate').value;
+            const alertDiv = document.getElementById('taxUpdateAlert');
+            const submitButton = this.querySelector('button[type="submit"]');
+            
+            try {
+                const response = await fetch('/admin/settings/tax', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ taxRate }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alertDiv.className = 'alert alert-success mt-3';
+                    alertDiv.textContent = result.message || 'Tax rate updated successfully!';
+                    alertDiv.style.display = 'block';
+                    
+                    document.getElementById('taxRate').value = result.taxRate;
+                } else {
+                    alertDiv.className = 'alert alert-danger mt-3';
+                    alertDiv.textContent = result.error || 'Failed to update tax rate';
+                    alertDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alertDiv.className = 'alert alert-danger mt-3';
+                alertDiv.textContent = 'An error occurred while updating tax rate';
+                alertDiv.style.display = 'block';
+            } finally {
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Update Tax Rate';
+                
+                setTimeout(() => {
+                    alertDiv.style.display = 'none';
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation | Your Elegant Purchase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-navy: #1A2C4F;
+            --golden-accent: #D4AF37;
+            --soft-white: #F5F7FA;
+            --elegant-gray: #4A4A4A;
+            --smooth-transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--soft-white) 0%, #E9ECEF 100%);
+            color: var(--elegant-gray);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            perspective: 1000px;
+        }
+
+        .order-confirmation-wrapper {
+            width: 100%;
+            max-width: 680px;
+            padding: 20px;
+        }
+
+        .order-confirmation-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 
+                0 30px 60px rgba(26, 44, 79, 0.15),
+                0 15px 25px rgba(26, 44, 79, 0.1);
+            overflow: hidden;
+            transform: rotateX(5deg) scale(0.95);
+            opacity: 0;
+            animation: card-entrance 1s forwards cubic-bezier(0.6, -0.05, 0.7, 0.15);
+        }
+
+        @keyframes card-entrance {
+            0% {
+                transform: rotateX(15deg) scale(0.9);
+                opacity: 0;
+            }
+            100% {
+                transform: rotateX(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .order-header {
+            background: var(--deep-navy);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: header-texture 10s linear infinite;
+        }
+
+        @keyframes header-texture {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .order-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            letter-spacing: -1px;
+            font-size: 2.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .order-header .checkmark {
+            width: 80px;
+            height: 80px;
+            background: var(--golden-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px auto;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .order-header .checkmark svg {
+            width: 50px;
+            height: 50px;
+            stroke: white;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .order-details {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .order-section {
+            background: var(--soft-white);
+            border-radius: 10px;
+            padding: 20px;
+            transition: var(--smooth-transition);
+        }
+
+        .order-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(26, 44, 79, 0.1);
+        }
+
+        .order-section h3 {
+            color: var(--deep-navy);
+            border-bottom: 2px solid var(--golden-accent);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .detail-row .label {
+            color: var(--elegant-gray);
+            opacity: 0.7;
+        }
+
+        .detail-row .value {
+            font-weight: 600;
+            color: var(--deep-navy);
+        }
+
+        .total-amount {
+            grid-column: 1 / -1;
+            background: var(--deep-navy);
+            color: white;
+            text-align: right;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 30px;
+            background: #f1f3f5;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--smooth-transition);
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .btn-download {
+            background: var(--golden-accent);
+            color: var(--deep-navy);
+        }
+
+        .btn-continue {
+            background: var(--deep-navy);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(26, 44, 79, 0.2);
+        }
+
+        @media (max-width: 600px) {
+            .order-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="order-confirmation-wrapper">
+        <div class="order-confirmation-card">
+            <div class="order-header">
+                <div class="checkmark">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <h1>Order Confirmed</h1>
+            </div>
+
+            <div class="order-details">
+                <div class="order-section">
+                    <h3>Order Details</h3>
+                    <div class="detail-row">
+                        <span class="label">Product</span>
+                        <span class="value"><%= product.title %></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Size</span>
+                        <span class="value"><%= order.size %></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Quantity</span>
+                        <span class="value"><%= order.quantity %></span>
+                    </div>
+                </div>
+
+                <div class="order-section">
+                    <h3>Shipping Info</h3>
+                    <div class="detail-row">
+                        <span class="label">Name</span>
+                        <span class="value"><%= order.shippingDetails.name %></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">City</span>
+                        <span class="value"><%= order.shippingDetails.city %></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Postal Code</span>
+                        <span class="value"><%= order.shippingDetails.postalCode %></span>
+                    </div>
+                </div>
+
+                <div class="order-section">
+                    <h3>Billing Summary</h3>
+                    <div class="detail-row">
+                        <span class="label">Subtotal</span>
+                        <span class="value">PKR <%= order.billing.subtotal.toFixed(2) %></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Tax (<%= order.billing.taxRate %>%)</span>
+                        <span class="value">PKR <%= order.billing.tax.toFixed(2) %></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="label">Shipping Fee</span>
+                        <span class="value">PKR <%= order.billing.shippingFee.toFixed(2) %></span>
+                    </div>
+                </div>
+
+                <div class="order-section payment-method">
+                    <h3>Payment Method</h3>
+                    <div class="detail-row">
+                        <span class="label">Method</span>
+                        <span class="value"><%= order.paymentMethod %></span>
+                    </div>
+                    <div class="payment-icon">
+                        <% if (order.paymentMethod && order.paymentMethod.toLowerCase().includes('credit')) { %>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--deep-navy)" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                <line x1="1" y1="10" x2="23" y2="10"></line>
+                            </svg>
+                        <% } else if (order.paymentMethod && order.paymentMethod.toLowerCase().includes('cash')) { %>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--deep-navy)" stroke-width="2">
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                                <circle cx="12" cy="12" r="4"></circle>
+                            </svg>
+                        <% } else { %>
+                            <!-- Default payment icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="var(--deep-navy)" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="total-amount">
+                    Total Payment: PKR <%= order.billing.total.toFixed(2) %>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="/uploads/bills/<%= pdfFileName %>" class="btn btn-download" download>
+                    Download Invoice
+                </a>
+                <a href="/" class="btn btn-continue">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .payment-method {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .payment-icon {
+            align-self: center;
+            margin-top: 15px;
+            opacity: 0.7;
+            transition: var(--smooth-transition);
+        }
+
+        .payment-icon svg {
+            width: 60px;
+            height: 60px;
+        }
+
+        .payment-method:hover .payment-icon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+    </style>
+</body>
+</html>

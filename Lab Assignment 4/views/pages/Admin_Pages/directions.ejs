@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Route Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #121420 0%, #1e2336 100%);
+            padding: 10px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1480px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(145deg, rgba(30, 39, 58, 0.9) 0%, rgba(22, 28, 42, 0.9) 100%);
+            border-radius: 20px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            color: #4ecdc4;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.7em;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+            letter-spacing: 1px;
+        }
+
+        #map { 
+            height: 600px; 
+            width: 100%; 
+            border-radius: 15px;
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.2),
+                0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(78, 205, 196, 0.2);
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(145deg, rgba(35, 45, 67, 0.6) 0%, rgba(25, 33, 49, 0.6) 100%);
+            border-radius: 15px;
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.1),
+                0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px 20px;
+            border: 2px solid rgba(78, 205, 196, 0.2);
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+            background: rgba(25, 33, 49, 0.5);
+            color: #4ecdc4;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"]:focus {
+            border-color: #4ecdc4;
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+        }
+
+        button {
+            padding: 15px 30px;
+            background: linear-gradient(145deg, #4ecdc4, #45b7aa);
+            color: #121420;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 20px rgba(78, 205, 196, 0.4),
+                0 5px 15px rgba(78, 205, 196, 0.2);
+            background: linear-gradient(145deg, #45b7aa, #4ecdc4);
+        }
+
+        #error-message {
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background-color: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            font-weight: 500;
+            display: none;
+        }
+
+        #error-message.visible {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .input-container {
+                flex-direction: column;
+            }
+            
+            input[type="text"] {
+                width: 100%;
+            }
+            
+            button {
+                width: 100%;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        /* Custom Leaflet Routing Machine Styling */
+        .leaflet-routing-container {
+            background: rgba(25, 33, 49, 0.9) !important;
+            color: #4ecdc4 !important;
+            border-radius: 10px !important;
+        }
+
+        .leaflet-routing-geocoders {
+            background: transparent !important;
+        }
+
+        .leaflet-routing-alt {
+            background: rgba(25, 33, 49, 0.8) !important;
+            border-radius: 10px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> Route Navigation</h1>
+        <div class="input-container">
+            <input type="text" id="origin" placeholder="Enter current location (lat, lng)" autocomplete="off">
+            <input type="text" id="destination" placeholder="Enter delivery location (lat, lng)" autocomplete="off">
+            <button onclick="calculateRoute()">Calculate Route</button>
+        </div>
+        <div id="error-message"></div>
+        <div id="map"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    <script>
+        let map;
+        let routingControl;
+
+        function initMap() {
+            try {
+                map = L.map('map').setView([30.3753, 69.3451], 6);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+                console.log("Map initialized successfully");
+            } catch (error) {
+                console.error("Error initializing map:", error);
+                showError("Error initializing map: " + error.message);
+            }
+        }
+
+        function parseCoordinates(coordStr) {
+            const [lat, lng] = coordStr.split(',').map(coord => parseFloat(coord.trim()));
+            if (isNaN(lat) || isNaN(lng)) {
+                throw new Error("Invalid coordinates format. Please use 'latitude, longitude'");
+            }
+            return [lat, lng];
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById("error-message");
+            errorDiv.innerText = message;
+            errorDiv.classList.add('visible');
+            setTimeout(() => {
+                errorDiv.classList.remove('visible');
+            }, 5000);
+        }
+
+        function calculateRoute() {
+            const originInput = document.getElementById("origin").value;
+            const destinationInput = document.getElementById("destination").value;
+
+            try {
+                if (!originInput || !destinationInput) {
+                    throw new Error("Please enter both locations");
+                }
+
+                const originCoords = parseCoordinates(originInput);
+                const destCoords = parseCoordinates(destinationInput);
+
+                if (routingControl) {
+                    map.removeControl(routingControl);
+                }
+
+                routingControl = L.Routing.control({
+                    waypoints: [
+                        L.latLng(originCoords[0], originCoords[1]),
+                        L.latLng(destCoords[0], destCoords[1])
+                    ],
+                    routeWhileDragging: true,
+                    show: false,
+                    lineOptions: {
+                        styles: [{ color: '#4ecdc4', weight: 6, opacity: 0.8 }]
+                    }
+                }).addTo(map);
+
+                routingControl.on('routesfound', function(e) {
+                    const routes = e.routes;
+                    const bounds = L.latLngBounds(routes[0].coordinates);
+                    map.fitBounds(bounds);
+                });
+
+            } catch (error) {
+                showError(error.message);
+                console.error("Route calculation error:", error);
+            }
+        }
+
+        window.onload = initMap;
+    </script>
+</body>
+</html>
