@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Analytics Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content-container {
+            padding: 20px;
+            background-color: #00bfff; /* Sky Blue background */
+            min-height: 100vh;
+        }
+
+        .section {
+            background-color: white;
+            padding: 15px; /* Reduced padding for a compact look */
+            margin-bottom: 20px; /* Reduced bottom margin */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.25rem; /* Slightly smaller heading size */
+        }
+
+        .data-table th, .data-table td {
+            padding: 8px; /* Reduced padding for compact table cells */
+            text-align: left;
+        }
+
+        .data-table th {
+            background-color: #00bfff;
+            color: white;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 250px; /* Reduced chart height */
+            margin-bottom: 20px;
+        }
+
+        /* Styling for small devices */
+        @media (max-width: 767px) {
+            .chart-container {
+                height: 200px; /* Even smaller height for mobile devices */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <div class="container">
+            <!-- Row 1: Sales and User Stats -->
+            <div class="row">
+                <!-- Sales Performance Chart -->
+                <div class="col-md-6">
+                    <div class="section">
+                        <h2>Sales Performance</h2>
+                        <div class="chart-container">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Growth Chart -->
+                <div class="col-md-6">
+                    <div class="section">
+                        <h2>User Growth</h2>
+                        <div class="chart-container">
+                            <canvas id="userGrowthChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Product Categories Table and Product Performance Chart -->
+            <div class="row">
+                <!-- Product Categories Table -->
+                <div class="col-md-6">
+                    <div class="section">
+                        <h2>Product Categories</h2>
+                        <table class="table table-bordered data-table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Products</th>
+                                    <th>Revenue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Clothing</td>
+                                    <td>200</td>
+                                    <td>$40,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Shoes</td>
+                                    <td>150</td>
+                                    <td>$22,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Cosmetics</td>
+                                    <td>80</td>
+                                    <td>$12,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Product Performance Chart -->
+                <div class="col-md-6">
+                    <div class="section">
+                        <h2>Product Performance</h2>
+                        <div class="chart-container">
+                            <canvas id="productPerformanceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Sales Data Table -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section">
+                        <h2>Sales Data</h2>
+                        <table class="table table-bordered data-table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity Sold</th>
+                                    <th>Revenue</th>
+                                    <th>Region</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Product A</td>
+                                    <td>120</td>
+                                    <td>$12,000</td>
+                                    <td>North</td>
+                                </tr>
+                                <tr>
+                                    <td>Product B</td>
+                                    <td>80</td>
+                                    <td>$8,000</td>
+                                    <td>East</td>
+                                </tr>
+                                <tr>
+                                    <td>Product C</td>
+                                    <td>200</td>
+                                    <td>$25,000</td>
+                                    <td>West</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Sales Performance Chart (Bar Chart)
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var salesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Sales ($)',
+                    data: [15000, 20000, 18000, 22000, 25000, 30000],
+                    backgroundColor: '#00bfff',
+                    borderColor: '#00bfff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // User Growth Chart (Line Chart)
+        var ctx2 = document.getElementById('userGrowthChart').getContext('2d');
+        var userGrowthChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'New Users',
+                    data: [50, 70, 120, 150, 200, 250],
+                    borderColor: '#28a745',
+                    backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Product Performance Chart (Pie Chart)
+        var ctx3 = document.getElementById('productPerformanceChart').getContext('2d');
+        var productPerformanceChart = new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: ['Clothing', 'Shoes', 'Cosmetics'],
+                datasets: [{
+                    label: 'Product Categories',
+                    data: [40, 35, 25],
+                    backgroundColor: ['#00bfff', '#ff7f50', '#ffcc00'],
+                    borderColor: ['#fff', '#fff', '#fff'],
+                    borderWidth: 1
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - SANA SAFINAZ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --sky-color: #00bfff;
+        }
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .confirmation-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            text-align: center;
+            border: 2px solid var(--sky-color);
+        }
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--sky-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 40px;
+        }
+        .order-id {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 20px 0;
+            border: 1px solid var(--sky-color);
+        }
+        .continue-btn {
+            background-color: var(--sky-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .continue-btn:hover {
+            background-color: #0099cc;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .order-details {
+            border-top: 1px solid var(--sky-color);
+            border-bottom: 1px solid var(--sky-color);
+            padding: 20px 0;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="confirmation-card">
+                    <div class="success-icon">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+                    <h2 class="mb-4">Thank You for Your Order!</h2>
+                    <p class="text-muted">Your order has been successfully placed and will be processed soon.</p>
+                    
+                    <div class="order-id">
+                        <small class="text-muted">Order ID:</small>
+                        <br>
+                        <strong><%= order._id %></strong>
+                    </div>
+
+                    <div class="order-details mb-4">
+                        <h5>Order Total</h5>
+                        <h3 class="text-success">PKR <%= order.total %></h3>
+                    </div>
+
+                    <p class="text-muted mb-4">
+                        A confirmation email has been sent to your email address.
+                        <br>
+                        You can track your order status using the order ID.
+                    </p>
+
+                    <a href="/" class="continue-btn">
+                        Continue Shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

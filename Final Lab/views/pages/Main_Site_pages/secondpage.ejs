@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Required Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    
+    <style>
+        .dropdown-toggle::after {
+            display: inline-block;
+            margin-left: 0.255em;
+        }
+        .dropdown .btn {
+            width: 150px;
+            height: 40px;
+            text-align: center;
+        }
+        .add-to-wishlist {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .add-to-wishlist:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .add-to-wishlist.active {
+            color: red;
+        }
+
+        .position-relative:hover .add-to-wishlist {
+            opacity: 1;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container-fluid mt-5 pt-5">
+        <div class="row">
+            <div class="col-12 mb-4">
+                <img src="images/innerpng1.webp" alt="Image 1" class="img-fluid w-100">
+            </div>
+            <!-- two drop down buttons-->
+
+            <div class="row mb-4">
+                <div class="col-md-12 d-flex justify-content-start align-items-center gap-3">
+                    <!-- Position Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-dark dropdown-toggle" type="button" id="positionBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                            Position
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/secondpage">Default</a></li>
+                            <li><a class="dropdown-item" href="/secondpage?sort=name">Name</a></li>
+                            <li><a class="dropdown-item" href="/secondpage?sort=price">Price</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Filter Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-dark dropdown-toggle" type="button" id="filterBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                            Filter By
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/secondpage?sort=asc">Price: Low to High</a></li>
+                            <li><a class="dropdown-item" href="/secondpage?sort=desc">Price: High to Low</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+<!-- no 1-->
+    <% for(let i=0 ; i < product.length ; i++){%>
+
+            <div class="col-md-3 position-relative">
+                <div class="position-relative">
+                    <img src="<%= product[i].picture %>" alt="Image 1" class="img-fluid w-100" style="max-width: 300px;">
+                    <div class="position-absolute bottom-0 start-0 end-0 bg-black text-white text-center py-2" 
+                         onclick="addToCart('<%= product[i]._id %>', '<%= product[i].price %>', '<%= product[i].title %>', '<%= product[i].picture %>')">
+                        <i class="bi bi-bag me-2"></i>Add to Bag
+                    </div>
+                    <div class="position-absolute top-0 end-0 p-2">
+                        <button class="btn btn-light rounded-circle add-to-wishlist" 
+                                data-product-id="<%= product[i]._id %>"
+                                data-price="<%= product[i].price %>"
+                                data-title="<%= product[i].title %>"
+                                data-picture="<%= product[i].picture %>">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <p><b>Pkr <%= product[i].price %></b></p>
+                    <div>
+                        <button class="btn btn-sm btn-outline-primary me-1">S</button>
+                        <button class="btn btn-sm btn-outline-primary me-1">M</button>
+                        <button class="btn btn-sm btn-outline-primary">L</button>
+                    </div>
+                </div>
+            </div>
+    
+            <% } %>
+       
+    </div>
+</div>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+-->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Initialize dropdowns
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Bootstrap dropdowns
+    var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+    var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+        return new bootstrap.Dropdown(dropdownToggleEl)
+    });
+
+    // Get current sort parameter from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentSort = urlParams.get('sort');
+    
+    // Update button texts based on current sort
+    if (currentSort) {
+        const filterBtn = document.getElementById('filterBtn');
+        const positionBtn = document.getElementById('positionBtn');
+        
+        switch(currentSort) {
+            case 'asc':
+                filterBtn.textContent = 'Price: Low to High';
+                break;
+            case 'desc':
+                filterBtn.textContent = 'Price: High to Low';
+                break;
+            case 'name':
+                positionBtn.textContent = 'Name';
+                break;
+            case 'price':
+                positionBtn.textContent = 'Price';
+                break;
+        }
+    }
+});
+
+// Your existing addToCart function
+function addToCart(productId, price, title, picture) {
+    fetch('/add-to-cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            productId,
+            price,
+            title,
+            picture
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Product added to cart!');
+        updateCartCount(data.cartCount);
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Your existing updateCartCount function
+function updateCartCount(count) {
+    const cartCountElement = document.getElementById('cartCount');
+    if (cartCountElement) {
+        cartCountElement.textContent = count;
+    }
+}
+
+document.querySelectorAll('.add-to-wishlist').forEach(button => {
+    button.addEventListener('click', async function(e) {
+        e.preventDefault();
+        const productData = {
+            productId: this.dataset.productId,
+            price: this.dataset.price,
+            title: this.dataset.title,
+            picture: this.dataset.picture
+        };
+
+        try {
+            const response = await fetch('/add-to-wishlist', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(productData)
+            });
+            
+            if (response.status === 401) {
+                if (confirm('Please log in to use wishlist features. Go to login page?')) {
+                    window.location.href = '/user/login';
+                }
+                return;
+            }
+
+            const result = await response.json();
+            alert(result.message);
+            
+            if (result.success) {
+                this.querySelector('i').classList.add('text-danger');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while adding to wishlist');
+        }
+    });
+});
+</script>
+</body>
+</html>

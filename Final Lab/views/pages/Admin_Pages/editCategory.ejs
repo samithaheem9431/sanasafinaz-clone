@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+    
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card-form {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            background-color: white;
+            padding: 30px;
+            margin-top: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .card-form:hover {
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 10px 15px;
+        }
+
+        .btn-custom {
+            background-color: #17a2b8;
+            color: white;
+            border-radius: 8px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #138496;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card-form">
+                    <h2 class="text-center mb-4">
+                        <i class="fas fa-edit me-2"></i>Edit Category
+                    </h2>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="categoryName" class="form-label">
+                                <i class="fas fa-tag me-2"></i>Category Name
+                            </label>
+                            <input type="text" 
+                                   id="categoryName" 
+                                   name="categoryName" 
+                                   class="form-control" 
+                                   required
+                                   value="<%= category.categoryName %>"
+                                   minlength="2" 
+                                   maxlength="50" 
+                                   placeholder="Enter category name">
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-custom w-100">
+                                <i class="fas fa-save me-2"></i>Update Category
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
