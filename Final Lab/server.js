@@ -22,7 +22,7 @@ let productsRouter = require("./routes/admin/products.router");
 app.use(productsRouter);
 
 const mongoose = require("mongoose");
-let connectionstring =  "mongodb://localhost:27017/Sana-Safinaz"
+let connectionstring =  "mongodb://127.0.0.1:27017/Sana-Safinaz"
 mongoose.connect(connectionstring)
 
 .then(()=>{
